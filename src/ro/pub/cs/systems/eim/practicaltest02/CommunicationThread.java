@@ -41,11 +41,11 @@ public class CommunicationThread extends Thread {
                         	TimeInfo ti = new TimeInfo(parts[1], parts[2]);
                         	//timeInformation.hh = parts[1];
                         	//timeInformation.mm = parts[2];
-                        	serverThread.setData(parts[0], timeInformation);
+                        	serverThread.setData(socket.getInetAddress().toString(), timeInformation);
                         	result = "Data is set";
                         } else {
                         	if (command.compareTo("reset") == 0) {
-                        		serverThread.removeData();
+                        		serverThread.removeData(socket.getInetAddress().toString());
                         		result = "Reset";
                         	}
                         	if (command.compareTo("poll") == 0) {

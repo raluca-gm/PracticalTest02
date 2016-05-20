@@ -49,10 +49,14 @@ public class ServerThread extends Thread{
         this.data.put(addr, timeInformation);
     }
    
-    public synchronized void removeData() {
+    public synchronized void clearData() {
         //this.data.remove(addr);
         this.data.clear();
     }    
+
+    public synchronized void removeData(String addr) {
+        this.data.remove(addr);
+    }        
     
     public synchronized HashMap<String, TimeInfo> getData() {
         return data;
