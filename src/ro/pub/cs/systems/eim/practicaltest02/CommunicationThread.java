@@ -31,7 +31,7 @@ public class CommunicationThread extends Thread {
                 if (bufferedReader != null && printWriter != null) {
                     Log.i(Constants.TAG, "[COMMUNICATION THREAD] Waiting for command from client!");
                     String command = bufferedReader.readLine();
-                    
+                    String result = "";
                     HashMap<String, TimeInfo> data = serverThread.getData();
                     TimeInfo timeInformation = null;
                     if (command != null && !command.isEmpty()) {
@@ -42,9 +42,11 @@ public class CommunicationThread extends Thread {
                         	//timeInformation.hh = parts[1];
                         	//timeInformation.mm = parts[2];
                         	serverThread.setData(parts[0], timeInformation);
+                        	result = "Data is set";
                         } else {
                         	if (command.compareTo("reset") == 0) {
                         		serverThread.removeData();
+                        		result = "Reset";
                         	}
                         	if (command.compareTo("poll") == 0) {
                                 Log.i(Constants.TAG, "[COMMUNICATION THREAD] Getting the information from the webservice...");
@@ -53,9 +55,10 @@ public class CommunicationThread extends Thread {
                                 
                         	}
                         }
-   
+                        printWriter.println(result);
+                        printWriter.flush();
                     } 
-                } 
+                }
                 socket.close();
             } catch (IOException ioException) {
                 Log.e(Constants.TAG, "[COMMUNICATION THREAD] An exception has occurred: " + ioException.getMessage());

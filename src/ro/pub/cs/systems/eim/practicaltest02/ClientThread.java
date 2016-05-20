@@ -20,7 +20,7 @@ public class ClientThread extends Thread{
             String address,
             int port,
             String result,
-            String informationType,
+            //String informationType,
             TextView resultTextView) {
         this.address = address;
         this.port = port;

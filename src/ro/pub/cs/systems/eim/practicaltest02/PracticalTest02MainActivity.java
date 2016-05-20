@@ -20,7 +20,7 @@ public class PracticalTest02MainActivity extends Activity {
     // Client widgets
     private EditText clientAddressEditText = null;
     private EditText clientPortEditText = null;
-    private EditText cityEditText = null;
+    private EditText commandEditText = null;
 
     private Button getInfoButton = null;
     private TextView resultTextView = null;
@@ -75,10 +75,9 @@ public class PracticalTest02MainActivity extends Activity {
                 return;
             }
 
-            String city = cityEditText.getText().toString();
-            String informationType = informationTypeSpinner.getSelectedItem().toString();
-            if (city == null || city.isEmpty() ||
-                    informationType == null || informationType.isEmpty()) {
+            String command = commandEditText.getText().toString();
+            //String informationType = informationTypeSpinner.getSelectedItem().toString();
+            if (command == null || command.isEmpty()) {
                 Toast.makeText(
                         getApplicationContext(),
                         "Parameters from client (city / information type) should be filled!",
@@ -87,14 +86,14 @@ public class PracticalTest02MainActivity extends Activity {
                 return;
             }
 
-            weatherForecastTextView.setText(Constants.EMPTY_STRING);
+            resultTextView.setText(Constants.EMPTY_STRING);
 
             clientThread = new ClientThread(
                     clientAddress,
                     Integer.parseInt(clientPort),
-                    city,
-                    informationType,
-                    weatherForecastTextView);
+                    command,
+                    //informationType,
+                    resultTextView);
             clientThread.start();
         }
     }
@@ -110,11 +109,11 @@ public class PracticalTest02MainActivity extends Activity {
 
         clientAddressEditText = (EditText)findViewById(R.id.client_address_edit_text);
         clientPortEditText = (EditText)findViewById(R.id.client_port_edit_text);
-        //cityEditText = (EditText)findViewById(R.id.city_edit_text);
+        commandEditText = (EditText)findViewById(R.id.command_edit_text);
 
         getInfoButton = (Button)findViewById(R.id.get_result_button);
-        getInfoButton.setOnClickListener(getWeatherForecastButtonClickListener);
-        weatherForecastTextView = (TextView)findViewById(R.id.weather_forecast_text_view);
+        getInfoButton.setOnClickListener(getResultButtonClickListener);
+        resultTextView = (TextView)findViewById(R.id.result_text_view);
     }
 
     @Override
